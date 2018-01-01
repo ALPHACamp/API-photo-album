@@ -17,3 +17,19 @@ Photo.create(title: "Anniversary", date: "2010-11-22", description: "This is our
 
 
 puts "created seed data"
+
+
+#get https://uinames.com/ api user profile info
+uri = URI("https://uinames.com/api/?ext")
+#get 15.times for api
+15.times do
+  User.destroy_all
+  response = Net::HTTP.get_response(uri)
+  api_info = JSON.parse(response.body)
+  User.create(email: api_info["email"], password: api_info["password"], name: api_info["name"], gender: api_info["gender"], age: api_info["age"], phone: api_info["phone"], photo: api_info["photo"] )
+
+end
+puts "cureated user info from api "
+
+#json 格式
+#{"name"=>"Patricia", "surname"=>"Quintero", "gender"=>"female", "region"=>"Mexico", "age"=>26, "title"=>"ms", "phone"=>"(683) 252 4017", "birthday"=>{"dmy"=>"11/02/1991", "mdy"=>"02/11/1991", "raw"=>666322033}, "email"=>"patricia_91@example.com", "password"=>"Quintero91*%", "credit_card"=>{"expiration"=>"3/19", "number"=>"3697-4239-2793-9139", "pin"=>4067, "security"=>393}, "photo"=>"https://uinames.com/api/photos/female/6.jpg"}
