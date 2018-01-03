@@ -8,6 +8,22 @@ class Api::PhotosController < Api::ApplicationController
     end
   end
 
+  def create
+    @photo = Photo.create(photo_params)
+    if @photo.save
+      render json: {
+        message: "success create pohoto!!"
+      }
+    end
+  end
+
+
+
+  private
+
+  def photo_params
+    params.permit(:title, :date, :description, :file_location)
+  end
 
 
 
