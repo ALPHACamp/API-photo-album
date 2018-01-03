@@ -20,13 +20,13 @@ puts "created seed data"
 
 
 #get https://uinames.com/ api user profile info
-uri = URI("https://uinames.com/api/?ext")
+uri = URI("https://uinames.com/api/?ext&region=england")
 #get 15.times for api
-15.times do
-  User.destroy_all
+User.destroy_all
+5.times do
   response = Net::HTTP.get_response(uri)
   api_info = JSON.parse(response.body)
-  User.create(email: api_info["email"], password: api_info["password"], name: api_info["name"], gender: api_info["gender"], age: api_info["age"], phone: api_info["phone"], photo: api_info["photo"] )
+  User.create(email: api_info["email"], password: "alphacamp", name: api_info["name"], gender: api_info["gender"], age: api_info["age"], phone: api_info["phone"], photo: api_info["photo"] )
 
 end
 puts "cureated user info from api "
