@@ -1,5 +1,5 @@
 class Api::PhotosController < Api::ApplicationController
-
+  before_action :set_photo, :only => [:show, :update, :destroy]
 
   def index
     @photos = Photo.all
@@ -21,6 +21,18 @@ class Api::PhotosController < Api::ApplicationController
     end
   end
 
+  def update
+    if @photo.update(photo_params)
+      respond_to do |format|
+        format.json { render json: @photo }
+      end
+    else
+      render json:{
+        errors: @photo.errors
+      }
+    end
+  end
+
 
 
   private
@@ -29,6 +41,9 @@ class Api::PhotosController < Api::ApplicationController
     params.permit(:title, :date, :description, :file_location)
   end
 
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
 
 
 end
