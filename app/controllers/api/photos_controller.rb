@@ -14,6 +14,10 @@ class Api::PhotosController < Api::ApplicationController
       render json: {
         message: "success create pohoto!!"
       }
+    else
+      render json: {
+        errors: @photo.errors
+      }
     end
   end
 
