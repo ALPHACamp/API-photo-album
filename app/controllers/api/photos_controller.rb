@@ -33,6 +33,18 @@ class Api::PhotosController < Api::ApplicationController
     end
   end
 
+  def destroy
+    if @photo.destroy
+      render json:{
+        message: "success to delete! "
+      }
+    else
+      render json: {
+        message: "Can't delete!"
+      }
+    end
+  end
+
 
 
   private
