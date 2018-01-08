@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
 
   namespace :api, defaults:  { format:  :json } do
+    post "login" => "auth#login"
+    post "logout" => "auth#logout"
     resources :users
     resources :photos do
       collection do
