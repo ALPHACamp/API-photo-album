@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :photos do
       collection do
         get :all
+        get :random
       end
     end
   end

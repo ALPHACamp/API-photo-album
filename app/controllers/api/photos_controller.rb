@@ -61,6 +61,22 @@ class Api::PhotosController < Api::ApplicationController
     end
   end
 
+  def random
+    rand_count = params[:rand]
+    url = params[:only]
+    @photos = Photo.limit(rand_count).order("random()")
+    if url
+      return render json: {
+        file_location: @photos.map{|photo|  photo.file_location}
+      }
+
+    else
+      return respond_to do |format|
+        format.json { render json: @photos }
+      end
+    end
+  end
+
 
 
   private
