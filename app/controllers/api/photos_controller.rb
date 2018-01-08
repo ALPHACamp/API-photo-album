@@ -45,6 +45,22 @@ class Api::PhotosController < Api::ApplicationController
     end
   end
 
+  def all
+    month  =  params[:month].to_i
+    url = params[:only]
+    @photos = Photo.where("cast(strftime('%m', date) as int) = ?", month)
+    if url
+      return render json: {
+        file_location: @photos.map{|photo|  photo.file_location}
+      }
+
+    else
+      return respond_to do |format|
+        format.json { render json: @photos }
+      end
+    end
+  end
+
 
 
   private

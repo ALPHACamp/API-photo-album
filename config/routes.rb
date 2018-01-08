@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults:  { format:  :json } do
     resources :users
-    resources :photos
+    resources :photos do
+      collection do
+        get :all
+      end
+    end
   end
 
 
